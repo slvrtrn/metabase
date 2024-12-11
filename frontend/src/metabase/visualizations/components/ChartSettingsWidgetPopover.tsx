@@ -14,7 +14,7 @@ interface Widget {
 }
 
 interface ChartSettingsWidgetPopoverProps {
-  anchor: HTMLElement;
+  anchor?: HTMLElement;
   handleEndShowWidget: () => void;
   widgets: Widget[];
 }
@@ -47,12 +47,25 @@ const ChartSettingsWidgetPopover = ({
     handleEndShowWidget();
   };
 
+  const rect = anchor?.getBoundingClientRect();
+
   return (
-    <TippyPopover
-      reference={anchor}
-      content={
-        widgets.length > 0 ? (
-          <PopoverRoot noTopPadding={hasMultipleSections} ref={contentRef}>
+    <Popover opened={!!anchor} onClose={onClose} position="right">
+      <Popover.Target>
+        <Box
+          pos="fixed"
+          left={rect?.left}
+          top={rect?.top}
+          w={anchor?.offsetWidth}
+          h={anchor?.offsetHeight}
+          style={{
+            pointerEvents: "none",
+          }}
+        />
+      </Popover.Target>
+      <Popover.Dropdown miw="20rem">
+        {widgets.length > 0 ? (
+          <Stack p="sm">
             {hasMultipleSections && (
               <Tabs
                 value={currentSection}
@@ -68,6 +81,7 @@ const ChartSettingsWidgetPopover = ({
                 </Tabs.List>
               </Tabs>
             )}
+
             {widgets
               .filter(widget => widget.section === currentSection)
               ?.map(widget => (
@@ -77,24 +91,10 @@ const ChartSettingsWidgetPopover = ({
                   hidden={false}
                 />
               ))}
-          </PopoverRoot>
-        ) : null
-      }
-      visible={!!anchor}
-      onClose={onClose}
-      placement="right"
-      offset={[10, 10]}
-      popperOptions={{
-        modifiers: [
-          {
-            name: "preventOverflow",
-            options: {
-              padding: 16,
-            },
-          },
-        ],
-      }}
-    />
+          </Stack>
+        ) : null}
+      </Popover.Dropdown>
+    </Popover>
   );
 };
 
