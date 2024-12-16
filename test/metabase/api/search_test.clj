@@ -424,7 +424,7 @@
       ;; We do not synchronously update dashboard count
       (search/reindex!)
       (is (= (sort-by :dashboardcard_count (cleaned-results dashboard-count-results))
-              (sort-by :dashboardcard_count (unsorted-search-request-data :rasta :q "dashboard-count")))))))
+             (sort-by :dashboardcard_count (unsorted-search-request-data :rasta :q "dashboard-count")))))))
 
 (deftest moderated-status-test
   (let [search-term "moderated-status-test"]
@@ -1350,7 +1350,7 @@
         {query-action :action-id} {:type :query :dataset_query (mt/native-query {:query (format "delete from %s" search-term)})}]
 
        ;; TODO investigate why the actions don't get indexed automatically
-       (search/reindex!)
+        (search/reindex!)
 
         (testing "by default do not search for native content"
           (is (= #{["card" mbql-card]
