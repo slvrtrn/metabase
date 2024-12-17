@@ -161,6 +161,12 @@ export function DashboardHeaderView({
     return () => clearTimeout(timerId);
   }, [isLastEditInfoVisible]);
 
+  const dashboardNameLocalized = (window as any).translateUserContent(
+    "fr",
+    "dashboard_name",
+    dashboard.name,
+  );
+
   return (
     <div>
       {isEditing && <EditBar title={editingTitle} buttons={editingButtons} />}
@@ -194,7 +200,7 @@ export function DashboardHeaderView({
                 <HeaderCaptionContainer>
                   <HeaderCaption
                     key={dashboard.name}
-                    initialValue={dashboard.name}
+                    initialValue={dashboardNameLocalized}
                     placeholder={t`Add title`}
                     isDisabled={!dashboard.can_write}
                     data-testid="dashboard-name-heading"
