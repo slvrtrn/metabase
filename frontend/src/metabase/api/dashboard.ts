@@ -63,6 +63,11 @@ export const dashboardApi = Api.injectEndpoints({
         }),
         providesTags: dashboard =>
           dashboard ? provideDashboardTags(dashboard) : [],
+        transformResponse: (response: Dashboard) => {
+          console.log("@m4uck57k", "response", response);
+          response.name = response.name + " localized";
+          return response;
+        },
       }),
       getDashboardQueryMetadata: builder.query<
         DashboardQueryMetadata,
