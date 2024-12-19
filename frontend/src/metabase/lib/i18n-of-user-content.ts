@@ -25,40 +25,40 @@ const originalCreateElement = React.createElement;
 // the BE. This would allow us to avoid sending the whole dictionary over the
 // wire.
 
-/**
- * We override createElement so that props can be automatically translated
- */
-function createElement(type: any, props: any, ...children: any[]) {
-  if (typeof type === "string") {
-    // Skip translation for native HTML elements
-    return originalCreateElement(type, props, ...children);
-  }
-
-  const componentName = type.displayName || type.name;
-
-  if (!componentName) {
-    // Skip translation for components without a name
-    return originalCreateElement(type, props, ...children);
-  }
-
-  const translatedProps = Object.entries(props || {}).reduce(
-    (acc, [key, value]) => {
-      if (typeof value === "string") {
-        const translation = translations.find(
-          ([name, prop, lang]) =>
-            name === componentName && prop === key && lang === "fr",
-        );
-        const msgstr = translation[4];
-        acc[key] = msgstr || value;
-      } else {
-        acc[key] = value;
-      }
-      return acc;
-    },
-    {} as Record<string, any>,
-  );
-
-  return originalCreateElement(type, translatedProps, ...children);
-}
-
-React.createElement = createElement;
+////**
+/// * We override createElement so that props can be automatically translated
+/// */
+///function createElement(type: any, props: any, ...children: any[]) {
+///  if (typeof type === "string") {
+///    // Skip translation for native HTML elements
+///    return originalCreateElement(type, props, ...children);
+///  }
+///
+///  const componentName = type.displayName || type.name;
+///
+///  if (!componentName) {
+///    // Skip translation for components without a name
+///    return originalCreateElement(type, props, ...children);
+///  }
+///
+///  const translatedProps = Object.entries(props || {}).reduce(
+///    (acc, [key, value]) => {
+///      if (typeof value === "string") {
+///        const translation = translations.find(
+///          ([name, prop, lang]) =>
+///            name === componentName && prop === key && lang === "fr",
+///        );
+///        const msgstr = translation[4];
+///        acc[key] = msgstr || value;
+///      } else {
+///        acc[key] = value;
+///      }
+///      return acc;
+///    },
+///    {} as Record<string, any>,
+///  );
+///
+///  return originalCreateElement(type, translatedProps, ...children);
+///}
+///
+///React.createElement = createElement;
