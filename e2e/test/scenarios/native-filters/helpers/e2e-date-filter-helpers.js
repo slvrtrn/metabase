@@ -69,7 +69,7 @@ export function setAdHocFilter(
   }
 
   if (includeCurrent) {
-    popover().within(() => {
+    cy.findByTestId("date-picker").within(() => {
       cy.icon("ellipsis").click();
     });
     cy.findByText(/^Include/).click();

@@ -173,7 +173,7 @@ describe("scenarios > question > relative-datetime", () => {
       openCreatedAt("Previous");
       addStartingFrom();
       setRelativeDatetimeUnit("months");
-      H.popover().within(() => {
+      H.clickActionsPopover().within(() => {
         cy.findByDisplayValue("days ago").should("not.exist");
         cy.findByDisplayValue("months ago").should("exist");
       });
@@ -279,11 +279,6 @@ const setRelativeDatetimeValue = value => {
   cy.findByLabelText("Interval").click().clear().type(value).blur();
 };
 
-const setStartingFromUnit = unit => {
-  cy.findByLabelText("Starting from unit").click();
-  cy.findAllByText(unit).last().click();
-};
-
 const setStartingFromValue = value => {
   cy.findByLabelText("Starting from interval")
     .click()
@@ -296,18 +291,20 @@ const withStartingFrom = (dir, [num, unit], [startNum, startUnit]) => {
   H.tableHeaderClick("testcol");
   cy.findByTextEnsureVisible("Filter by this column").click();
   cy.findByTextEnsureVisible("Relative dates…").click();
-  H.popover().within(() => {
+  H.clickActionsPopover().within(() => {
     cy.findByText(dir).click();
   });
-  addStartingFrom();
 
-  setRelativeDatetimeValue(num);
-  setRelativeDatetimeUnit(unit);
-
-  setStartingFromValue(startNum);
-  setStartingFromUnit(startUnit + (dir === "Previous" ? " ago" : " from now"));
+  H.relativeDatePicker.setValue({ unit, value: num }, H.clickActionsPopover);
+  H.relativeDatePicker.addStartingFrom(
+    {
+      value: startNum,
+      unit: startUnit + (dir === "Previous" ? " ago" : " from now"),
+    },
+    H.clickActionsPopover,
+  );
 
   cy.intercept("POST", "/api/dataset").as("dataset");
-  H.popover().within(() => cy.findByText("Add filter").click());
+  H.clickActionsPopover().within(() => cy.findByText("Add filter").click());
   cy.wait("@dataset");
 };

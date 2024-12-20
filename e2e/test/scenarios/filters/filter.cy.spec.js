@@ -508,7 +508,7 @@ describe("scenarios > question > filter", () => {
       .findByText("Created At is in the previous 30 days")
       .click();
 
-    H.popover().within(() => {
+    H.clauseStepPopover().within(() => {
       cy.button("Back").click();
       cy.button("Back").click();
       cy.findByText("Custom Expression").click();

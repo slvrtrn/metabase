@@ -1,4 +1,5 @@
 import { H } from "e2e/support";
+import { clauseStepPopover } from "e2e/support/helpers";
 
 const STRING_CASES = [
   {
@@ -568,15 +569,18 @@ describe("scenarios > filters > filter types", () => {
               cy.findByRole("tab", { name: offset }).click();
             });
 
-            H.relativeDatePicker.setValue({ value, unit });
+            H.relativeDatePicker.setValue({ value, unit }, clauseStepPopover);
 
             if (includeCurrent) {
-              H.relativeDatePicker.toggleCurrentInterval();
+              H.relativeDatePicker.toggleCurrentInterval(clauseStepPopover);
             } else if (offsetUnit && offsetValue) {
-              H.relativeDatePicker.addStartingFrom({
-                value: offsetValue,
-                unit: offsetUnit,
-              });
+              H.relativeDatePicker.addStartingFrom(
+                {
+                  value: offsetValue,
+                  unit: offsetUnit,
+                },
+                clauseStepPopover,
+              );
             }
 
             H.clauseStepPopover().button("Add filter").click();

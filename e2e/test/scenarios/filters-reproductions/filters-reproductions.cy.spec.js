@@ -566,14 +566,14 @@ describe("issue 25378", () => {
   it("should be able to use relative date filter on a breakout after the aggregation (metabase#25378)", () => {
     cy.findAllByTestId("action-buttons").last().findByText("Filter").click();
 
-    H.popover().within(() => {
+    H.clauseStepPopover().within(() => {
       cy.findByText("Created At: Month").click();
       cy.findByText("Relative dates…").click();
       cy.findByDisplayValue("days").click();
     });
     cy.findByRole("listbox").findByText("months").click();
 
-    H.popover().within(() => {
+    H.clauseStepPopover().within(() => {
       cy.findByLabelText("Starting from…").click();
       cy.button("Add filter").click();
     });

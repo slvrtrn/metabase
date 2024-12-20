@@ -174,7 +174,7 @@ describe("(metabase#46714)", () => {
     });
 
     //TODO: Fix this shame
-    cy.wait(1000);
+    cy.wait(2000);
 
     cy.findByTestId("segment-editor")
       .findByText("Add filters to narrow your answer")
@@ -189,12 +189,18 @@ describe("(metabase#46714)", () => {
       cy.findByLabelText("Starting from…").click();
     });
 
-    H.relativeDatePicker.setValue({ value: 68, unit: "day" });
+    H.relativeDatePicker.setValue(
+      { value: 68, unit: "day" },
+      H.segmentEditorPopover,
+    );
 
-    H.relativeDatePicker.setStartingFrom({
-      value: 70,
-      unit: "day",
-    });
+    H.relativeDatePicker.setStartingFrom(
+      {
+        value: 70,
+        unit: "day",
+      },
+      H.segmentEditorPopover,
+    );
 
     H.popover().findByText("Add filter").click();
 

@@ -98,7 +98,7 @@ function FilterPopover({
           />
         )}
       </Popover.Target>
-      <Popover.Dropdown>
+      <Popover.Dropdown data-testid="segment-popover">
         <FilterPicker
           query={query}
           stageIndex={stageIndex}

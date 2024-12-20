@@ -224,6 +224,8 @@ const RelativeDatePicker = (props: RelativeDatePickerProps) => {
           opened={optionsVisible}
           onClose={() => setOptionsVisible(false)}
           position="bottom-start"
+          withinPortal={false}
+          floatingStrategy="fixed"
         >
           <Popover.Target>
             <MoreButton

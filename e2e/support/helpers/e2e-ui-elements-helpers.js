@@ -312,6 +312,10 @@ export function clickActionsPopover() {
   return popover("click-actions-popover");
 }
 
+export function segmentEditorPopover() {
+  return popover("segment-popover");
+}
+
 export function assertTableData({ columns, firstRows = [] }) {
   tableInteractive()
     .findAllByTestId("header-cell")
