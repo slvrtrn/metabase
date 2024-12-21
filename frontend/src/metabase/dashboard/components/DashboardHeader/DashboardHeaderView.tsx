@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { t } from "ttag";
+import { L } from "metabase/i18n/utils";
 
 import { useInteractiveDashboardContext } from "embedding-sdk/components/public/InteractiveDashboard/context";
 import { isInstanceAnalyticsCollection } from "metabase/collections/utils";
@@ -161,12 +162,6 @@ export function DashboardHeaderView({
     return () => clearTimeout(timerId);
   }, [isLastEditInfoVisible]);
 
-  const dashboardNameLocalized = (window as any).translateUserContent(
-    "fr",
-    "dashboard_name",
-    dashboard.name,
-  );
-
   return (
     <div>
       {isEditing && <EditBar title={editingTitle} buttons={editingButtons} />}
@@ -200,7 +195,7 @@ export function DashboardHeaderView({
                 <HeaderCaptionContainer>
                   <HeaderCaption
                     key={dashboard.name}
-                    initialValue={dashboardNameLocalized}
+                    initialValue={L(dashboard, "name")}
                     placeholder={t`Add title`}
                     isDisabled={!dashboard.can_write}
                     data-testid="dashboard-name-heading"
