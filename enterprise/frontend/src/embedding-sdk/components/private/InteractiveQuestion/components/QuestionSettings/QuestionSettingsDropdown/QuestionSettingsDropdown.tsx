@@ -8,7 +8,7 @@ export const QuestionSettingsDropdown = () => (
         <Icon name="gear" />
       </ActionIcon>
     </Popover.Target>
-    <Popover.Dropdown>
+    <Popover.Dropdown miw="20rem">
       <InteractiveQuestion.QuestionSettings />
     </Popover.Dropdown>
   </Popover>
