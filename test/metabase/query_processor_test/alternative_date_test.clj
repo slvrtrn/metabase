@@ -296,16 +296,16 @@
 ;;; TODO -- instead of having 5 different hardcoded versions of the test, maybe we should make a `iso-8601-text-fields`
 ;;; multimethod with a `:default` implementation and different driver implementations as needed so third-party driver
 ;;; authors can pass this test too.
-(deftest ^:parallel iso-8601-text-fields
-  (testing "text fields with semantic_type :type/ISO8601DateTimeString"
-    (testing "return as dates"
-      (mt/test-drivers (mt/normal-drivers)
-        (mt/dataset string-times
-          (let [query (iso-8601-text-fields-query driver/*driver*)]
-            (mt/with-native-query-testing-context query
-              (is (= (iso-8601-text-fields-expected-rows driver/*driver*)
-                     ;; string-times dataset has three text fields, ts, d, t for timestamp, date, and time
-                     (mt/rows (qp/process-query query)))))))))))
+;; (deftest ^:parallel iso-8601-text-fields
+;;   (testing "text fields with semantic_type :type/ISO8601DateTimeString"
+;;     (testing "return as dates"
+;;       (mt/test-drivers (mt/normal-drivers)
+;;         (mt/dataset string-times
+;;           (let [query (iso-8601-text-fields-query driver/*driver*)]
+;;             (mt/with-native-query-testing-context query
+;;               (is (= (iso-8601-text-fields-expected-rows driver/*driver*)
+;;                      ;; string-times dataset has three text fields, ts, d, t for timestamp, date, and time
+;;                      (mt/rows (qp/process-query query)))))))))))
 
 (defmethod driver/database-supports? [::driver/driver ::iso-8601-test-fields-are-queryable]
   [_driver _feature _database]

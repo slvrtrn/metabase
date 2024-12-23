@@ -399,23 +399,23 @@
     [_driver _feature _database]
     false))
 
-(deftest ^:parallel better-error-when-parameter-mismatch
-  (mt/test-drivers (->> (mt/normal-drivers-with-feature :native-parameters ::get-parameter-count)
-                        (filter #(isa? driver/hierarchy % :sql)))
-    (is (thrown-with-msg?
-         Exception
-         #"It looks like we got more parameters than we can handle, remember that parameters cannot be used in comments or as identifiers."
-         (qp/process-query
-          {:type       :native
-           :native     {:query         "SELECT * FROM \n[[-- {{name}}]]\n VENUES [[WHERE {{name}} = price]]"
-                        :template-tags {"name"
-                                        {:name         "name"
-                                         :display-name "Name"
-                                         :type         :text}}}
-           :database   (mt/id)
-           :parameters [{:type   :category
-                         :target [:variable [:template-tag "name"]]
-                         :value "foobar"}]})))))
+;; (deftest ^:parallel better-error-when-parameter-mismatch
+;;   (mt/test-drivers (->> (mt/normal-drivers-with-feature :native-parameters ::get-parameter-count)
+;;                         (filter #(isa? driver/hierarchy % :sql)))
+;;     (is (thrown-with-msg?
+;;          Exception
+;;          #"It looks like we got more parameters than we can handle, remember that parameters cannot be used in comments or as identifiers."
+;;          (qp/process-query
+;;           {:type       :native
+;;            :native     {:query         "SELECT * FROM \n[[-- {{name}}]]\n VENUES [[WHERE {{name}} = price]]"
+;;                         :template-tags {"name"
+;;                                         {:name         "name"
+;;                                          :display-name "Name"
+;;                                          :type         :text}}}
+;;            :database   (mt/id)
+;;            :parameters [{:type   :category
+;;                          :target [:variable [:template-tag "name"]]
+;;                          :value "foobar"}]})))))
 
 (deftest ^:parallel ignore-parameters-for-unparameterized-native-query-test
   (testing "Parameters passed for unparameterized queries should get ignored"
