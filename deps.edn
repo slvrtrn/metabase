@@ -214,7 +214,9 @@
  {"metabase-maven-downloads" {:url "https://s3.amazonaws.com/metabase-maven-downloads"}
   "redshift" {:url "https://s3.amazonaws.com/redshift-maven-repository/release"}
   ;; for metabase/saml20-clj
-  "opensaml" {:url "https://build.shibboleth.net/nexus/content/repositories/releases/"}}
+  "opensaml" {:url "https://build.shibboleth.net/nexus/content/repositories/releases/"}
+  ;; JDBC v2 snapshot
+  "clickhouse-java" {:url "https://s01.oss.sonatype.org/content/repositories/snapshots"}}
 
  :aliases
  {;;; Local Dev & test profiles
