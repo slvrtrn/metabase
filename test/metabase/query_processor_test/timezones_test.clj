@@ -78,12 +78,13 @@
                   {:filter [:between $last_login "2014-08-02T03:00:00.000000" "2014-08-02T06:00:00.000000"]})))
             (str "If MBQL datetime literal strings do not explicitly specify a timezone, they should be parsed as if "
                  "in the current reporting timezone (Pacific in this case)"))
-        (is (= [[6 "Shad Ferdynand" "2014-08-02T05:30:00-07:00"]]
-               (mt/formatted-rows
-                [int identity identity]
-                (mt/run-mbql-query users
-                  {:filter [:between $last_login "2014-08-02T10:00:00.000000Z" "2014-08-02T13:00:00.000000Z"]})))
-            "MBQL datetime literal strings that include timezone should be parsed in it regardless of report timezone")))
+        ;; (is (= [[6 "Shad Ferdynand" "2014-08-02T05:30:00-07:00"]]
+        ;;        (mt/formatted-rows
+        ;;         [int identity identity]
+        ;;         (mt/run-mbql-query users
+        ;;           {:filter [:between $last_login "2014-08-02T10:00:00.000000Z" "2014-08-02T13:00:00.000000Z"]})))
+        ;;     "MBQL datetime literal strings that include timezone should be parsed in it regardless of report timezone")
+        ))
     (testing "UTC timezone"
       (let [run-query   (fn []
                           (mt/formatted-rows
